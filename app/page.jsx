@@ -40,7 +40,7 @@ const HomePage = () => {
 
   // get user data
   useEffect(() => {
-    if (token && !user) {
+    if (token) {
       const getUser = async () => {
         dispatch({ type: "SIGNING" });
         const res = await apiConfig.baseAPI.get("/api/auth/user", {
@@ -48,7 +48,7 @@ const HomePage = () => {
         });
         dispatch({ type: "GET_USER", payload: res.data });
       };
-      getUser();
+      user ? '': getUser();
     }
   }, [dispatch, token]);
 

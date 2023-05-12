@@ -4,7 +4,7 @@ import { createContext, useReducer } from "react";
 import AuthReducer from "./AuthReducer";
 
 const INITIAL_STATE = {
-  user: [],
+  user: null,
   isLoggedIn: false,
   token: "",
 };
