@@ -7,7 +7,7 @@ import apiConfig from "@/utils/apiConfig";
 import { useContext, useEffect } from "react";
 
 const HomePage = () => {
-  const { dispatch, token, isLoggedIn } = useContext(AuthContext);
+  const { dispatch, token, isLoggedIn, user } = useContext(AuthContext);
 
   //check first login
   useEffect(() => {
@@ -40,7 +40,7 @@ const HomePage = () => {
 
   // get user data
   useEffect(() => {
-    if (token) {
+    if (token && !user) {
       const getUser = async () => {
         dispatch({ type: "SIGNING" });
         const res = await apiConfig.baseAPI.get("/api/auth/user", {
