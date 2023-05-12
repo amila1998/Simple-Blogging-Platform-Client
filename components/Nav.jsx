@@ -2,27 +2,19 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { useContext, useEffect, useState } from "react";
-import apiConfig from '../utils/apiConfig';
-import { GlobalState } from "../utils/GlobalState";
-import { useRouter } from "next/navigation";
+import { useContext, useState } from "react";
+import apiConfig from "../utils/apiConfig";
+
+import { AuthContext } from "@/context/AuthContext";
 
 const Nav = () => {
-  const router = useRouter();
   const [toggleDropdown, setToggleDropdown] = useState(false);
-  const state = useContext(GlobalState);
-  const [isLogged,setIsLogged] = state.userAPI.isLogged;
-  const [user] = state.userAPI.userDetails;  
-  const [reloadProvider,setReloadProvider] = state.reloadProvider;
-
-
- 
+  const { dispatch, isLoggedIn, user } = useContext(AuthContext);
 
   const signOut = async () => {
-    await apiConfig.baseAPI.get("/api/auth/signout",{ withCredentials: true });
+    await apiConfig.baseAPI.get("/api/auth/signout", { withCredentials: true });
     localStorage.removeItem("firstLogin");
-    setIsLogged(false)
-    setReloadProvider(false)
+    dispatch({ type: "SIGNOUT" });
   };
 
   return (
@@ -40,7 +32,7 @@ const Nav = () => {
 
       {/* Desktop Navigation */}
       <div className="sm:flex hidden">
-        {isLogged ? (
+        {isLoggedIn ? (
           <div className="flex gap-3 md:gap-5">
             <Link href="/create-prompt" className="black_btn">
               Create Post
@@ -50,7 +42,7 @@ const Nav = () => {
             </button>
             <Link href="/profile">
               <Image
-                src={user?.image}
+                src={user?.avatar}
                 width={37}
                 height={37}
                 className="rounded-full"
@@ -68,10 +60,10 @@ const Nav = () => {
       </div>
       {/* Mobile Navigation */}
       <div className="sm:hidden flex relative">
-        {isLogged ? (
+        {isLoggedIn ? (
           <div className="flex">
             <Image
-              src={user?.image}
+              src={user?.avatar}
               width={37}
               height={37}
               className="rounded-full"

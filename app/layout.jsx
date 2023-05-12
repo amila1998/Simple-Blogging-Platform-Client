@@ -1,8 +1,7 @@
-import Image from "next/image";
-import Link from "next/link";
-import "../styles/globals.css";
-import { DataProvider } from "@/utils/GlobalState";
 import Nav from "@/components/Nav";
+import "../styles/globals.css";
+// import { DataProvider } from "@/utils/GlobalState";
+import { AuthContextProvider } from "@/context/AuthContext";
 
 export const metadata = {
   title: "Sample Blog Platform",
@@ -11,17 +10,17 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body>
-        <div className="main">
-          <div className="gradient" />
-        </div>
-        <main className="app">
-          <DataProvider>
+      <AuthContextProvider>
+        <body>
+          <div className="main">
+            <div className="gradient" />
+          </div>
+          <main className="app">
             <Nav />
             {children}
-          </DataProvider>
-        </main>
-      </body>
+          </main>
+        </body>
+      </AuthContextProvider>
     </html>
   );
 }
