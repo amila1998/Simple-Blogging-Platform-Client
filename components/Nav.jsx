@@ -2,20 +2,27 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import apiConfig from '../utils/apiConfig';
 import { GlobalState } from "../utils/GlobalState";
+import { useRouter } from "next/navigation";
 
 const Nav = () => {
+  const router = useRouter();
   const [toggleDropdown, setToggleDropdown] = useState(false);
   const state = useContext(GlobalState);
-  const [isLogged] = state.userAPI.isLogged;
-  const [user] = state.userAPI.userDetails;     
+  const [isLogged,setIsLogged] = state.userAPI.isLogged;
+  const [user] = state.userAPI.userDetails;  
+  const [reloadProvider,setReloadProvider] = state.reloadProvider;
+
+
+ 
 
   const signOut = async () => {
-    await apiConfig.baseAPI.get("/api/auth/signout");
+    await apiConfig.baseAPI.get("/api/auth/signout",{ withCredentials: true });
     localStorage.removeItem("firstLogin");
-    window.location.href = "/";
+    setIsLogged(false)
+    setReloadProvider(false)
   };
 
   return (

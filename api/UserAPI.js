@@ -11,9 +11,9 @@ function UserAPI(token) {
         if (token) {
             const getUser = async () => {
                 try {
-                    const res = await apiConfig.baseAPI.get('/api/auth/infor', {
-                        headers: { Authorization: token }
-                    })
+                    const res = await apiConfig.baseAPI.get('/api/auth/user',{
+                        headers: { Authorization: token },
+                     })
                     setIsLogged(true)
                     setUser(res.data)
                 } catch (err) {
