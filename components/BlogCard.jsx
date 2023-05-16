@@ -2,7 +2,8 @@
 
 import { useContext, useState } from "react";
 import Image from "next/image";
-import ReactQuill from "react-quill";
+import dynamic from "next/dynamic";
+const ReactQuill = dynamic(() => import("react-quill"), { ssr: false });
 import "react-quill/dist/quill.snow.css";
 import { usePathname, useRouter } from "next/navigation";
 import { AuthContext } from "@/context/AuthContext";
