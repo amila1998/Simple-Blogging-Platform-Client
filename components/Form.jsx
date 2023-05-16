@@ -1,11 +1,13 @@
+"use client"
 import apiConfig from "@/utils/apiConfig";
 import { Grid } from "@mui/material";
 import React, { useMemo, useRef } from "react";
 import Link from "next/link";
-// import dynamic from "next/dynamic";
-// const ReactQuill = dynamic(() => import("react-quill"), { ssr: false });
-const ReactQuill = typeof window === 'object' ? require('react-quill') : undefined;
+import dynamic from "next/dynamic";
+const ReactQuill = dynamic(import('react-quill'), { ssr: false})
+// const ReactQuill = typeof window === 'object' ? require('react-quill') : undefined;
 import "react-quill/dist/quill.snow.css";
+import "react-quill/dist/quill.bubble.css";
 import { useRouter } from "next/navigation";
 // import { ImageUpload } from 'services/image/ImageUpload';
 // import { ErrorToast } from 'utils';
@@ -20,6 +22,7 @@ export default function Form({
   token,
   isEdit,
 }) {
+  // const ReactQuill = useMemo(() => dynamic(() => import('react-quill'), { ssr: false }),[]);
   const quillRef = useRef();
   const router = useRouter();
   const imageHandler = (e) => {
