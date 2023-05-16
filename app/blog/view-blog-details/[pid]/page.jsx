@@ -3,8 +3,8 @@
 import apiConfig from "@/utils/apiConfig";
 import { useContext, useEffect, useState } from "react";
 import Link from "next/link";
-import ReactQuill from "react-quill";
-import "react-quill/dist/quill.snow.css";
+import dynamic from "next/dynamic";
+const ReactQuill = dynamic(() => import("react-quill"), { ssr: false });
 import Image from "next/image";
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
