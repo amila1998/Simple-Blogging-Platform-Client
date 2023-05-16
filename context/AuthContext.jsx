@@ -7,6 +7,7 @@ const INITIAL_STATE = {
   user: null,
   isLoggedIn: false,
   token: "",
+  isLoading: false
 };
 
 export const AuthContext = createContext(INITIAL_STATE);
@@ -20,6 +21,7 @@ export const AuthContextProvider = ({ children }) => {
         user: state.user,
         isLoggedIn: state.isLoggedIn,
         token: state.token,
+        isLoading: state.isLoading,
         dispatch,
       }}
     >

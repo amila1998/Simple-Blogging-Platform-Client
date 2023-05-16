@@ -2,6 +2,7 @@ import Nav from "@/components/Nav";
 import "../styles/globals.css";
 // import { DataProvider } from "@/utils/GlobalState";
 import { AuthContextProvider } from "@/context/AuthContext";
+import Footer from "@/components/Footer";
 
 export const metadata = {
   title: "Sample Blog Platform",
@@ -19,6 +20,7 @@ export default function RootLayout({ children }) {
             <Nav />
             {children}
           </main>
+          <Footer/>
         </body>
       </AuthContextProvider>
     </html>

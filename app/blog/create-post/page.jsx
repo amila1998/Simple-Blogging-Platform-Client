@@ -1,38 +1,28 @@
 "use client";
-
-import { useContext, useEffect, useState } from "react";
+import Form from "@/components/Form";
+import { AuthContext } from "@/context/AuthContext";
+import apiConfig from "@/utils/apiConfig";
 import { useRouter } from "next/navigation";
+import { useContext, useEffect, useState, useRef } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import apiConfig from "../../../utils/apiConfig";
 
-import Signin from "@/components/Signin";
-import { AuthContext } from "@/context/AuthContext";
-
-const SigninPage = () => {
+const CreatePostPage = () => {
   const router = useRouter();
-  const { dispatch, isLoggedIn } = useContext(AuthContext);
-  const [user, setUser] = useState({
-    email: "",
-    password: "",
-  });
+  const { isLoggedIn, token } = useContext(AuthContext);
+  const [title, setTitle] = useState("");
+  const [content, setContent] = useState("");
 
-  useEffect(() => {
-    if (isLoggedIn) {
-      router.push("/");
-    }
-  }, [router, isLoggedIn]);
-
-  const loginSubmit = async (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     try {
       const res = await apiConfig.baseAPI.post(
-        "/api/auth/signing",
-        { ...user },
-        { withCredentials: true }
+        "/api/post/create",
+        { title, content, isPublish: true },
+        {
+          headers: { Authorization: token },
+        }
       );
-      localStorage.setItem("firstLogin", true);
-      dispatch({ type: "SIGNING" });
       toast.success(res.data.msg, {
         position: "top-right",
         autoClose: 5000,
@@ -42,13 +32,10 @@ const SigninPage = () => {
         draggable: true,
         progress: undefined,
       });
-      // setReloadProvider(true)
-
-      router.push("/");
-      // window.location.href = "/";
+      router.push("/blog/my-blogs");
     } catch (err) {
-      console.log("🚀 ~ file: page.jsx:51 ~ loginSubmit ~ err:", err)
-      if(err.response){
+      console.log("🚀 ~ file: page.jsx:20 ~ handleSubmit ~ error:", err);
+      if (err.response) {
         toast.error(err.response.data.msg, {
           position: "top-right",
           autoClose: 5000,
@@ -58,7 +45,7 @@ const SigninPage = () => {
           draggable: true,
           progress: undefined,
         });
-      }else {
+      } else {
         toast.error(err.message, {
           position: "top-right",
           autoClose: 5000,
@@ -71,12 +58,28 @@ const SigninPage = () => {
       }
     }
   };
+
+  useEffect(() => {
+    if (!isLoggedIn) {
+      router.push("/");
+    }
+  }, [router, isLoggedIn]);
+
   return (
     <>
       <ToastContainer />
-      <Signin user={user} setUser={setUser} loginSubmit={loginSubmit} />
+    
+      <Form
+        handleSubmit={handleSubmit}
+        setTitle={setTitle}
+        setContent={setContent}
+        title={title}
+        content={content}
+        token={token}
+        isEdit={false}
+      />
     </>
   );
 };
 
-export default SigninPage;
+export default CreatePostPage;

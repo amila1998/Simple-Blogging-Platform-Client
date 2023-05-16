@@ -25,8 +25,13 @@ const AuthReducer = (state, action) => {
         ...state,
         isLoggedIn: false,
         token: "",
-        user: [],
+        user: null,
       };
+      case "LOADING":
+        return {
+          ...state,
+        isLoading:action.payload
+        };
     default:
       return state;
   }
