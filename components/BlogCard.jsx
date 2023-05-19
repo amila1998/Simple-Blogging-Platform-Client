@@ -5,7 +5,7 @@ import Image from "next/image";
 import dynamic from "next/dynamic";
 const ReactQuill = dynamic(() => import("react-quill"), { ssr: false });
 import "react-quill/dist/quill.snow.css";
-import { usePathname, useRouter } from "next/navigation";
+// import { useRouter } from "next/navigation";
 import { AuthContext } from "@/context/AuthContext";
 import apiConfig from "@/utils/apiConfig";
 import dayjs from "dayjs";
@@ -13,8 +13,8 @@ import relativeTime from "dayjs/plugin/relativeTime";
 
 dayjs.extend(relativeTime);
 
-const BlogCard = ({ post, token, setCallback }) => {
-  const router = useRouter();
+const BlogCard = ({ post, token, setCallback,router }) => {
+  // const router = useRouter();
 
   const { user } = useContext(AuthContext);
 

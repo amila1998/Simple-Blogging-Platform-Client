@@ -1,17 +1,15 @@
 "use client"
 import apiConfig from "@/utils/apiConfig";
-import { Grid } from "@mui/material";
-import React, { useMemo, useRef } from "react";
-import Link from "next/link";
+
+import { useMemo, useRef } from "react";
+
 import dynamic from "next/dynamic";
-const ReactQuill = dynamic(import('react-quill'), { ssr: false})
-// const ReactQuill = typeof window === 'object' ? require('react-quill') : undefined;
+const ReactQuill = dynamic(() => import("react-quill"), { ssr: false });
+
 import "react-quill/dist/quill.snow.css";
-import "react-quill/dist/quill.bubble.css";
-import { useRouter } from "next/navigation";
-// import { ImageUpload } from 'services/image/ImageUpload';
-// import { ErrorToast } from 'utils';
-// import '../../assets/css/richTextEditor.css' // just for custom css
+
+// import { useRouter } from "next/navigation";
+
 
 export default function Form({
   content,
@@ -21,10 +19,10 @@ export default function Form({
   title,
   token,
   isEdit,
+  router,
 }) {
-  // const ReactQuill = useMemo(() => dynamic(() => import('react-quill'), { ssr: false }),[]);
   const quillRef = useRef();
-  const router = useRouter();
+  // const router = useRouter();
   const imageHandler = (e) => {
     const editor = quillRef.current.getEditor();
     console.log(editor);

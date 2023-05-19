@@ -16,13 +16,14 @@ const BlogCardList = ({ data, token, setCallback }) => {
           post={post}
           token={token}
           setCallback={setCallback}
+          router={router}
         />
       ))}
     </div>
   );
 };
 
-const Feed = () => {
+const Feed = ({router}) => {
   const { token } = useContext(AuthContext);
   const [allPosts, setAllPosts] = useState([]);
   const [callback, setCallback] = useState(true);
@@ -73,7 +74,7 @@ const Feed = () => {
           <Loading />
         </div>
       ) : (
-        <BlogCardList data={allPosts} token={token} setCallback={setCallback} />
+        <BlogCardList data={allPosts} token={token} setCallback={setCallback} router={router} />
       )}
     </section>
   );

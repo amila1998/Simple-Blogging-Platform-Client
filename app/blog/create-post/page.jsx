@@ -77,6 +77,7 @@ const CreatePostPage = () => {
         content={content}
         token={token}
         isEdit={false}
+        router={router}
       />
     </>
   );

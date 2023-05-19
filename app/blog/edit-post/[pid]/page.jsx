@@ -92,6 +92,7 @@ const EditPostPage = ({ params }) => {
         content={content}
         token={token}
         isEdit={true}
+        router={router}
       />
     </>
   );
