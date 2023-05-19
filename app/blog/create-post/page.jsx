@@ -1,5 +1,8 @@
 "use client";
-import Form from "@/components/Form";
+
+import dynamic from "next/dynamic";
+const Form = dynamic(() => import("@/components/Form"), { ssr: false });
+// import Form from "@/components/Form";
 import { AuthContext } from "@/context/AuthContext";
 import apiConfig from "@/utils/apiConfig";
 import { useRouter } from "next/navigation";
