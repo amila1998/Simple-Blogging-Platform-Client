@@ -107,13 +107,13 @@ export default function Form({
             Body
           </span>
           <div className="bg-white border-gray-300 shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-500 focus:ring-opacity-50 w-full rounded-md py-2 px-3">
-            <ReactQuill
+          {typeof window !== "undefined" && <ReactQuill
               theme="snow"
               ref={quillRef}
               value={content}
               modules={modules}
               onChange={handleContentChange}
-            />
+            />}
           </div>
         </label>
         <div className="flex-end mx-3 mb-5 gap-4">
