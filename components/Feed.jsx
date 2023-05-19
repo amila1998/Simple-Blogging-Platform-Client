@@ -7,7 +7,7 @@ import apiConfig from "@/utils/apiConfig";
 import { AuthContext } from "@/context/AuthContext";
 import Loading from "./Loading";
 
-const BlogCardList = ({ data, token, setCallback }) => {
+const BlogCardList = ({ data, token, setCallback,router }) => {
   return (
     <div className="mt-16 prompt_layout">
       {data.map((post) => (
